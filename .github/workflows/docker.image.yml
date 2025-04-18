@@ -58,7 +58,7 @@ jobs:
         working-directory: ./frontend
 
       - name: Build the Docker image (Frontend)
-        run: docker build . --file ./Dockerfile --tag iagouvea/openblog-js-frontend:${IMAGE_TAG}
+        run: docker build . --file ./frontend/Dockerfile --tag iagouvea/openblog-js-frontend:${IMAGE_TAG}
 
       - name: Send Docker image to repository (Frontend)
         run: docker push iagouvea/openblog-js-frontend:${IMAGE_TAG}
