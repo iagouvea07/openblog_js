@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: openblog-js-backend-service
+  namespace: openblog-js
+  labels:
+    app: openblog-js-backend
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app: openblog-js-backend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openblog-js-frontend-service
+  namespace: openblog-js
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  selector:
+    app: openblog-js-frontend

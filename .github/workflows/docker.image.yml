@@ -1,0 +1,73 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: write
+  
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      #Setting Modules
+      - name: Setup Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: "22"
+
+    
+      #Setting Environment Variables
+      - name: Set image tag
+        run: echo "IMAGE_TAG=${{ github.run_number }}" >> $GITHUB_ENV
+
+
+      #Backend Workflow
+      - name: Install Dependences (Backend)
+        run: npm install
+
+      - name: Build Docker Image (Backend)
+        run: docker build . --file ./backend/Dockerfile --tag iagouvea/openblog-js-backend:${IMAGE_TAG}
+
+      - name: Send Docker image to repository (Backend)
+        run: docker push iagouvea/openblog-js-backend:${IMAGE_TAG}
+
+
+      #Frontend Workflow
+      - name: Install Dependences (Frontend)
+        run: npm install
+
+      - name: Build Frontend (Frontend)
+        run: npm run build
+
+      - name: Build the Docker image (Frontend)
+        run: docker build . --file ./Dockerfile --tag iagouvea/openblog-js-frontend:${IMAGE_TAG}
+
+      - name: Send Docker image to repository (Frontend)
+        run: docker push iagouvea/openblog-js-frontend:${IMAGE_TAG}
+
+
+      #Update Deployment
+      - name: Overwrite image version in Deployment.yaml (Backend/Frontend)
+        run: |
+          sed -i "s|image: iagouvea/openblog-js-backend:.*|image: iagouvea/openblog-js-backend:${IMAGE_TAG}|g" k8s/deployment.yaml
+          sed -i "s|image: iagouvea/openblog-js-frontend:.*|image: iagouvea/openblog-js-frontend:${IMAGE_TAG}|g" k8s/deployment.yaml
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git commit -am "Atualiza imagem para tag ${IMAGE_TAG}"
+          git push
+
