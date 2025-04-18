@@ -57,6 +57,9 @@ jobs:
         run: npm run build
         working-directory: ./frontend
 
+      - name: list dir
+        run: ls -l ./frontend
+
       - name: Build the Docker image (Frontend)
         run: docker build . --file ./frontend/Dockerfile --tag iagouvea/openblog-js-frontend:${IMAGE_TAG}
 
