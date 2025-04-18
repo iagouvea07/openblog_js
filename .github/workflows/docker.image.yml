@@ -43,7 +43,6 @@ jobs:
 
       - name: Build Docker Image (Backend)
         run: docker build . --file ./backend/Dockerfile --tag iagouvea/openblog-js-backend:${IMAGE_TAG}
-        working-directory: ./backend
 
       - name: Send Docker image to repository (Backend)
         run: docker push iagouvea/openblog-js-backend:${IMAGE_TAG}
@@ -60,11 +59,10 @@ jobs:
 
       - name: Build the Docker image (Frontend)
         run: docker build . --file ./Dockerfile --tag iagouvea/openblog-js-frontend:${IMAGE_TAG}
-        working-directory: ./frontend
 
       - name: Send Docker image to repository (Frontend)
         run: docker push iagouvea/openblog-js-frontend:${IMAGE_TAG}
-        
+
 
       #Update Deployment
       - name: Overwrite image version in Deployment.yaml (Backend/Frontend)
