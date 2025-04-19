@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: openblog-js-backend
-          image: iagouvea/openblog-js-backend:222
+          image: iagouvea/openblog-js-backend:1.0.0
           ports:
             - containerPort: 8080
           env:
@@ -45,7 +45,7 @@ spec:
     spec:
       containers:
         - name: openblog-js-frontend
-          image: iagouvea/openblog-js-frontend:1151
+          image: iagouvea/openblog-js-frontend:1.0.0
           ports:
             - containerPort: 80
           resources:
