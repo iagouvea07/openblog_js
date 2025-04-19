@@ -2,6 +2,7 @@ const express = require('express')
 const dotenv = require('dotenv')
 const cors = require('cors')
 const bodyParser = require('body-parser')
+const router = require('./routes/router.js')
 
 dotenv.config()
 const app = express()
@@ -14,10 +15,7 @@ app.use(cors())
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json({ limit: '100mb' }));
 
-//app.use("/", router.getRouter)
-//app.use("/", router.postRouter)
-//app.use("/", router.putRouter)
-//app.use("/", router.deleteRouter)
+app.use("/", router.getRouter)
 
 const server = app.listen(PORT, () => {
     console.log(`✅ Server running on port ${PORT}`);
