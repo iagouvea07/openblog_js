@@ -36,7 +36,7 @@ jobs:
         run: echo "BACKEND_VERSION=$(grep iagouvea/openblog-js-backend ./k8s/deployment.yaml | awk -F ':' '{print $3}')" >> $GITHUB_ENV
       
       - name: Set Frontend Version
-        run: echo "FRONTEND_VERSION=$(grep iagouvea/openblog-js-frontend ./k8s/deployment.yaml | cut -d: -f2)" >> $GITHUB_ENV
+        run: echo "BACKEND_VERSION=$(grep iagouvea/openblog-js-frontend ./k8s/deployment.yaml | awk -F ':' '{print $3}')" >> $GITHUB_ENV
 
 
       #Backend Workflow
