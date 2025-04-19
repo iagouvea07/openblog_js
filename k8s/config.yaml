@@ -10,7 +10,7 @@ data:
       listen [::]:80;
       server_name localhost;
 
-      root        /opt/openblog-js;
+      root        /opt/openblog-js-frontend;
       index       index.html index.htm index.php;
 
       location /_next/ {
