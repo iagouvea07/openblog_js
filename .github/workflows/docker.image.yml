@@ -33,10 +33,10 @@ jobs:
     
       #Setting Environment Variables
       - name: Set Backend Version
-        run: echo "BACKEND_VERSION=$(grep iagouvea/openblog-js-backend | cut -d: -f2)" >> $GITHUB_ENV
+        run: echo "BACKEND_VERSION=$(grep iagouvea/openblog-js-backend ./k8s/deployment.yaml | cut -d: -f2)" >> $GITHUB_ENV
       
-      - name: Set Backend Version
-        run: echo "FRONTEND_VERSION=$(grep iagouvea/openblog-js-frontend | cut -d: -f2)" >> $GITHUB_ENV
+      - name: Set Frontend Version
+        run: echo "FRONTEND_VERSION=$(grep iagouvea/openblog-js-frontend ./k8s/deployment.yaml | cut -d: -f2)" >> $GITHUB_ENV
 
 
       #Backend Workflow
