@@ -32,8 +32,11 @@ jobs:
 
     
       #Setting Environment Variables
-      - name: Set image tag
-        run: echo "IMAGE_TAG=${{ github.run_number }}" >> $GITHUB_ENV
+      - name: Set Backend Version
+        run: echo "BACKEND_VERSION=$(grep iagouvea/openblog-js-backend | cut -d: -f2)" >> $GITHUB_ENV
+      
+      - name: Set Backend Version
+        run: echo "FRONTEND_VERSION=$(grep iagouvea/openblog-js-frontend | cut -d: -f2)" >> $GITHUB_ENV
 
 
       #Backend Workflow
@@ -42,11 +45,11 @@ jobs:
         working-directory: ./backend
 
       - name: Build Docker Image (Backend)
-        run: docker build . --file Dockerfile --tag iagouvea/openblog-js-backend:${IMAGE_TAG}
+        run: docker build . --file Dockerfile --tag iagouvea/openblog-js-backend:${BACKEND_VERSION}
         working-directory: ./backend
 
       - name: Send Docker image to repository (Backend)
-        run: docker push iagouvea/openblog-js-backend:${IMAGE_TAG}
+        run: docker push iagouvea/openblog-js-backend:${BACKEND_VERSION}
 
 
       #Frontend Workflow
@@ -59,20 +62,20 @@ jobs:
         working-directory: ./frontend
 
       - name: Build the Docker image (Frontend)
-        run: docker build . --file Dockerfile --tag iagouvea/openblog-js-frontend:${IMAGE_TAG}
+        run: docker build . --file Dockerfile --tag iagouvea/openblog-js-frontend:${FRONTEND_VERSION}
         working-directory: ./frontend
 
       - name: Send Docker image to repository (Frontend)
-        run: docker push iagouvea/openblog-js-frontend:${IMAGE_TAG}
+        run: docker push iagouvea/openblog-js-frontend:${FRONTEND_VERSION}
 
 
       #Update Deployment
-      - name: Overwrite image version in Deployment.yaml (Backend/Frontend)
-        run: |
-          sed -i "s|image: iagouvea/openblog-js-backend:.*|image: iagouvea/openblog-js-backend:${IMAGE_TAG}|g" k8s/deployment.yaml
-          sed -i "s|image: iagouvea/openblog-js-frontend:.*|image: iagouvea/openblog-js-frontend:${IMAGE_TAG}|g" k8s/deployment.yaml
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          git commit -am "Atualiza imagem para tag ${IMAGE_TAG}"
-          git push
+      #- name: Overwrite image version in Deployment.yaml (Backend/Frontend)
+      #  run: |
+      #    sed -i "s|image: iagouvea/openblog-js-backend:.*|image: iagouvea/openblog-js-backend:${IMAGE_TAG}|g" k8s/deployment.yaml
+      #    sed -i "s|image: iagouvea/openblog-js-frontend:.*|image: iagouvea/openblog-js-frontend:${IMAGE_TAG}|g" k8s/deployment.yaml
+      #    git config user.name "github-actions"
+      #    git config user.email "actions@github.com"
+      #    git commit -am "Atualiza imagem para tag ${IMAGE_TAG}"
+      #    git push
 
