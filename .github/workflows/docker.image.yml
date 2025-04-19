@@ -38,6 +38,9 @@ jobs:
       - name: Set Frontend Version
         run: echo "BACKEND_VERSION=$(grep iagouvea/openblog-js-frontend ./k8s/deployment.yaml | awk -F ':' '{print $3}')" >> $GITHUB_ENV
 
+      - name: teste
+        run: echo $BACKEND_VERSION
+
 
       #Backend Workflow
       - name: Install Dependences (Backend)
