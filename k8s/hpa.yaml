@@ -19,7 +19,8 @@ spec:
 ---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
-metadata: openblog-js-frontend-autoscaling
+metadata: 
+  name: openblog-js-frontend-autoscaling
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
