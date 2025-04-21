@@ -4,7 +4,8 @@ metadata:
   name: openblog-js-postgres-pv
   namespace: openblog-js
 spec:
-  capacity: 1Gi
+  capacity: 
+    storage: 5Gi
   accessModes:
     - ReadWriteOnce
   volumeMode: Filesystem
