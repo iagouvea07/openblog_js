@@ -9,14 +9,14 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: openblog-js-postgres
+      app: openblog-js-db
   template:
     metadata:
       labels:
-        app: openblog-js-postgres
+        app: openblog-js-db
     spec:
       containers:
-        - name: openblog-js-postgres
+        - name: openblog-js-db
           image: postgres:17
           ports:
             - containerPort: 5432
@@ -24,12 +24,12 @@ spec:
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: openblog-js-postgres-master-secret
+                  name: openblog-js-db-master-secret
                   key: password
           volumeMounts:
-            - name: postgres-volume
+            - name: db-volume
               mountPath: /var/lib/postgresql/data
       volumes:
-        - name: postgres-volume
+        - name: db-volume
           persistentVolumeClaim:
-            claimName: openblog-js-postgres-pvc
+            claimName: openblog-js-db-pvc

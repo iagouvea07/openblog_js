@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: openblog-js-postgres-pvc
+  name: openblog-js-db-pvc
   namespace: openblog-js
 spec:
   accessModes:
@@ -11,4 +11,4 @@ spec:
     requests:
       storage: 500Mi
   storageClassName: ""
-  volumeName: openblog-js-postgres-pv
+  volumeName: openblog-js-db-pvc

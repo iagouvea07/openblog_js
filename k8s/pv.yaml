@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: openblog-js-postgres-pv
+  name: openblog-js-dv-pv
   namespace: openblog-js
 spec:
   capacity: 
@@ -11,7 +11,7 @@ spec:
   volumeMode: Filesystem
   persistentVolumeReclaimPolicy: Retain
   local:
-    path: /mnt/openblog-js-postgres-volume
+    path: /mnt/openblog-js-db-volume
   nodeAffinity:
     required:
       nodeSelectorTerms:
