@@ -14,9 +14,9 @@ spec:
     path: /mnt/openblog-js-postgres-volume
   nodeAffinity:
     required:
-    nodeSelectorTerms:
-      - matchExpressions:
-        - key: kubernetes.io/hostname
-          operator: In
-          values:
-            - worker-node
+      nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+              - worker-node
