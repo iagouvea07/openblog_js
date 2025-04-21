@@ -4,7 +4,7 @@ metadata:
   name: openblog-js-postgres-pvc
   namespace: openblog-js
 spec:
-  accessmodes:
+  accessModes:
     - ReadWriteOnce
   volumeMode: Filesystem
   resources:
