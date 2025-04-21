@@ -2,6 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: openblog-js-postgres-pvc
+  namespace: openblog-js
 spec:
   accessmodes:
     - ReadWriteOnce
