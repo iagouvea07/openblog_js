@@ -27,3 +27,17 @@ spec:
       protocol: TCP
   selector:
     app: openblog-js-frontend
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openblog-js-postgres-service
+  namespace: openblog-js
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5432
+      targetPort: 5432
+      protocol: TCP
+  selector:
+    app: openblog-js-postgres

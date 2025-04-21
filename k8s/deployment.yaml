@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: openblog-js-backend
-          image: iagouvea/openblog-js-backend:1.0.0
+          image: iagouvea/openblog-js-backend:1.0.1
           ports:
             - containerPort: 8080
           env:
